@@ -1,10 +1,17 @@
 import { AxiosResponse } from 'axios';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
+import Tabs from '../components/Tabs';
 import { fetchCategories } from '../http';
 import { ICategory, ICollectionResponse } from '../types';
 
-export default function Home() {
+interface IProptype {
+  categories: {
+    items: ICategory[];
+  };
+}
+
+const Home: NextPage<IProptype> = ({ categories }) => {
   return (
     <div>
       <Head>
@@ -13,12 +20,14 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
+      <Tabs categories={categories.items} />
+
       <main>
         <h1 className='mx'>welcome to hell</h1>
       </main>
     </div>
   );
-}
+};
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const { data: categories }: AxiosResponse<ICollectionResponse<ICategory[]>> =
@@ -35,6 +44,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-
-
-
+export default Home;
