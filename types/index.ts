@@ -27,8 +27,9 @@ export interface IArticlesAttribute {
   body: string;
   Slug: string;
   Image: IImageData;
-  createdAt?: string;
+  createdAt: string;
   author: IAuthor;
+  shortDescription: string;
 }
 export interface IImageData {
   data: {
@@ -62,7 +63,6 @@ export interface IAuthor {
     };
   };
 }
-
 
 //
 export interface IResourceMeta {
